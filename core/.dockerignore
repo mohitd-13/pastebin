@@ -37,6 +37,13 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+.pre-commit-config.yaml
+
+# --- Git & Version Control ---
+.git/
+.gitattributes
+.gitignore
+.github/
 
 # --- Environment Variables & Credentials ---
 # Prevent production image leaks of API keys and database secrets.
@@ -67,3 +74,18 @@ Thumbs.db
 coverage.xml
 nosetests.xml
 *.log
+tests/
+test*.py
+
+# --- DockerFiles ---
+Dockerfile
+*.Dockerfile
+Dockerfile.*
+docker-compose*
+compose.y*ml
+.dockerignore
+
+README.md
+LICENSE
+CHANGELOG.md
+

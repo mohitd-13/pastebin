@@ -4,17 +4,24 @@ from functools import lru_cache, cached_property
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
+    # Connection pool settings
+    db_pool_size: int = 5               # Number of permanent connection to keep open in pool
+    db_max_overflow: int = 10           # Extra connections allowed during peak load
+    db_pool_timeout: int = 30           # Seconds to wait for available connection
+    db_pool_recycle: int = 1800         # Recycle connections after 30 minutes
+    db_echo: bool = True                # Print SQL in terminal, good for debugging (disable in production)
+    
     # Database settings
-    POSTGRES_DRIVER: str = "asyncpg"
-    POSTGRES_USER: str = "postgres"
-    POSTGRES_HOST: str = "localhost"
-    POSTGRES_PORT: int = 5432
-    POSTGRES_DB: str = "example"
-    POSTGRES_PASSWORD_FILE: str = "./secrets/postgresql/credential"
+    postgres_driver: str = "asyncpg"
+    postgres_driver: str = "postgres"
+    postgres_host: str = "localhost"
+    postgres_port: int = 5432
+    postgres_db: str = "example"
+    postgres_password_file: str = "./secrets/postgresql/credential"
 
     @cached_property
     def postgres_password(self) -> str:
-        path = Path(self.POSTGRES_PASSWORD_FILE)
+        path = Path(self.postgres_password_file)
         if not path.is_file():
             raise ValueError(f"Password file not found {path}")
         password = path.read_text(encoding="utf-8").strip()
@@ -25,9 +32,9 @@ class Settings(BaseSettings):
     @cached_property
     def postgres_url(self) -> str:
         return (
-            f"postgresql+{self.POSTGRES_DRIVER}://"
-            f"{self.POSTGRES_USER}:{self.postgres_password}"
-            f"@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
+            f"postgresql+{self.postgres_driver}://"
+            f"{self.postgres_driver}:{self.postgres_password}"
+            f"@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
         )
         
 @lru_cache
