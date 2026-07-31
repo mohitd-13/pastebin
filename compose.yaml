@@ -1,0 +1,46 @@
+services:
+  postgresql:
+    image: postgres:17
+    container_name: postgres_db
+    restart: always
+    secrets:
+      - db-password
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    ports:
+      - '5433:5432'
+    environment:
+      - POSTGRES_DB=example
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  server:
+    build:
+      context: ./core
+      dockerfile: dev.Dockerfile
+    ports:
+      - '8080:8080'
+    environment:
+      - POSTGRES_HOST=postgresql
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=example
+      - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+    develop:
+      watch:
+        - path: ./core
+          action: rebuild
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    secrets:
+      - db-password
+
+volumes:
+  pg-data:
+secrets:
+  db-password:
+    file: ./core/secrets/postgresql/credential

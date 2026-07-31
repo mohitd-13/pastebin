@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     
     # Database settings
     postgres_driver: str = "asyncpg"
-    postgres_driver: str = "postgres"
+    postgres_user: str = "postgres"
     postgres_host: str = "localhost"
     postgres_port: int = 5432
     postgres_db: str = "example"
@@ -33,7 +33,7 @@ class Settings(BaseSettings):
     def postgres_url(self) -> str:
         return (
             f"postgresql+{self.postgres_driver}://"
-            f"{self.postgres_driver}:{self.postgres_password}"
+            f"{self.postgres_user}:{self.postgres_password}"
             f"@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
         )
         
