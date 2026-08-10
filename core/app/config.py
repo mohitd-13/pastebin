@@ -11,6 +11,9 @@ class Settings(BaseSettings):
     db_pool_recycle: int = 1800         # Recycle connections after 30 minutes
     db_echo: bool = True                # Print SQL in terminal, good for debugging (disable in production)
     
+    # AWS S3 storage settings
+    aws_s3_bucket_name: str = "pastebin-content-656338545145"
+    
     # Database settings
     postgres_driver: str = "asyncpg"
     postgres_user: str = "postgres"

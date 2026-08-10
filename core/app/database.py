@@ -1,6 +1,6 @@
-from fastapi import Depends
-from collections.abc import AsyncGenerator
+from app.config import settings
 
+from collections.abc import AsyncGenerator
 from sqlalchemy.ext.asyncio import (
     create_async_engine,
     AsyncSession,
@@ -8,8 +8,6 @@ from sqlalchemy.ext.asyncio import (
     AsyncEngine,
 )
 from sqlalchemy.orm import DeclarativeBase
-
-from app.config import settings
 
 
 engine: AsyncEngine = create_async_engine(
