@@ -1,8 +1,7 @@
-from core.app.database import get_db
-from core.app.schemas import PasteCreate, PasteResponse
-from core.app.utils import get_content_size
+from app.database import get_db
+from app.schemas import PasteCreate, PasteResponse
 
-from fastapi import APIRouter, Query, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Annotated
 

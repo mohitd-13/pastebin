@@ -1,38 +1,36 @@
-import boto3
+from aiobotocore.client import AioBaseClient
 
-from core.app.config import settings
+from app.config import settings
 
 BUCKET_NAME=settings.aws_s3_bucket_name
 
-session = boto3.Session(profile_name="pastebin")
-s3 = session.client("s3")
 
-def create_object(bucket_key: str, content: bytes) -> None:
+async def create_object(s3: AioBaseClient, bucket_key: str, content: bytes) -> None:
         """
         Store text content into s3 bucket
         """
-        s3.put_object(
+        await s3.put_object(
                 Bucket=BUCKET_NAME,
                 Key=bucket_key,
                 Body=content,
         )
 
-def read_object(bucket_key: str) -> bytes:
+async def read_object(s3: AioBaseClient, bucket_key: str) -> bytes:
         """
         Retrive bytes content from s3 bucket
         """
-        response = s3.get_object(
+        response = await s3.get_object(
                 Bucket=BUCKET_NAME,
                 Key=bucket_key,
         )
-        return response["Body"].read()
+        return await response["Body"].read()
         
 
-def delete_object(bucket_key: str) -> None:
+async def delete_object(s3: AioBaseClient, bucket_key: str) -> None:
         """
         Delete content from s3 bucket
         """
-        s3.delete_object(
+        await s3.delete_object(
                 Bucket=BUCKET_NAME,
                 Key=bucket_key,
         )
