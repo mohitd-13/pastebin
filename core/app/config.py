@@ -1,7 +1,8 @@
+from functools import cached_property, lru_cache
 from pathlib import Path
-from functools import lru_cache, cached_property
 
 from pydantic_settings import BaseSettings
+
 
 class Settings(BaseSettings):
     # Connection pool settings

@@ -1,11 +1,12 @@
-from app.database import initialize_database
-from app.routers import pastes
+from contextlib import asynccontextmanager
 
 import aioboto3
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from contextlib import asynccontextmanager
+
+from app.database import initialize_database
+from app.routers import pastes
 
 
 @asynccontextmanager
@@ -13,17 +14,17 @@ async def lifespan(app: FastAPI):
     # Startup
     # Create database tables in postgres if not present
     await initialize_database()
-    
+
     # Create asynchronous s3 session
     session = aioboto3.Session(profile_name="pastebin")
-    
+
     async with session.client("s3") as s3:
         app.state.s3 = s3
-        
+
     yield
     # Shutdown
 
-    
+
 app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(

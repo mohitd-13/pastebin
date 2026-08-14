@@ -6,13 +6,14 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "aioboto3>=15.5.0",
-    "alembic>=1.18.5",
+    "alembic>=1.19.1",
     "asyncpg>=0.31.0",
-    "fastapi[standard]>=0.140.13",
-    "sqlalchemy[asyncio]>=2.0.51",
+    "fastapi[standard]>=0.141.1",
+    "sqlalchemy[asyncio]>=2.0.52",
 ]
 
 [dependency-groups]
 dev = [
     "pytest-asyncio>=1.4.0",
+    "ruff>=0.16.2",
 ]

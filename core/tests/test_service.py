@@ -1,11 +1,11 @@
-from botocore.exceptions import ClientError
 from unittest.mock import AsyncMock, patch
+
 import pytest
-from sqlalchemy.ext.asyncio import AsyncSession
+from botocore.exceptions import ClientError
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.service import insert_new_record_with_retries
-from app.storage.bucket import create_object
 
 text_content = "Hello world from service mock test"
 

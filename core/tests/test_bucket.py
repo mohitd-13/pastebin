@@ -2,9 +2,7 @@ from unittest.mock import AsyncMock
 
 import pytest
 
-from app.storage.bucket import (
-    BUCKET_NAME, create_object, read_object, delete_object
-    )
+from app.storage.bucket import BUCKET_NAME, create_object, delete_object, read_object
 
 s3 = AsyncMock()
 test_key = "tests/3ui83ej"

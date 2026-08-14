@@ -1,14 +1,12 @@
-from app.config import settings
-
-from collections.abc import AsyncGenerator
 from sqlalchemy.ext.asyncio import (
-    create_async_engine,
+    AsyncEngine,
     AsyncSession,
     async_sessionmaker,
-    AsyncEngine,
+    create_async_engine,
 )
 from sqlalchemy.orm import DeclarativeBase
 
+from app.config import settings
 
 engine: AsyncEngine = create_async_engine(
     settings.postgres_url,
@@ -25,28 +23,13 @@ async_session_factory = async_sessionmaker(
     class_=AsyncSession,
     expire_on_commit=False,     # Keep data accessible after commit
     autocommit=False,           # Require explicit commits
-    autoflush=False,            # Manual control over flushing    
+    autoflush=False,            # Manual control over flushing
 )
 
-async def get_db() -> AsyncGenerator[AsyncSession, None]:
-    """
-    Dependency function for FastAPI endpoints.
-    Yields a database session and ensures proper cleanup
-    """
-    async with async_session_factory() as session:
-        try:
-            yield session
-        except Exception:
-            await session.rollback()
-            raise
-        finally:
-            await session.close()
-    
 class Base(DeclarativeBase):
     """
     Base class for all models using SQLAlechemy's 2.0 syntax.
     """
-    pass
 
 async def initialize_database() -> None:
     """
@@ -54,4 +37,4 @@ async def initialize_database() -> None:
     This uses a sync connection because the 'create_all' doesn't feature async yet.
     """
     async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all) 
+        await conn.run_sync(Base.metadata.create_all)

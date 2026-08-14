@@ -1,11 +1,10 @@
 # --- uv & Python Virtual Environments ---
-# Crucial: Always ignore local virtual environments. They are platform-dependent 
+# Crucial: Always ignore local virtual environments. They are platform-dependent
 # and will break inside the container if copied from a different OS.
 .venv/
 venv/
 ENV/
 .uv/
-secrets/
 
 # --- Python Build & Cache Artifacts ---
 **/__pycache__/
@@ -52,6 +51,7 @@ MANIFEST
 .env.*
 !.env.example
 secrets.toml
+secrets/
 
 # --- IDEs, Editors & OS Overhead ---
 .vscode/
@@ -85,7 +85,7 @@ docker-compose*
 compose.y*ml
 .dockerignore
 
+# --- Documentation and License files ---
 README.md
 LICENSE
 CHANGELOG.md
-

@@ -18,17 +18,21 @@ services:
       timeout: 5s
       retries: 5
 
-  server:
+  backend:
     build:
       context: ./core
       dockerfile: dev.Dockerfile
+    volumes:
+      - ./.docker/aws:/aws:ro
     ports:
-      - '8080:8080'
+      - '8000:8000'
     environment:
       - POSTGRES_HOST=postgresql
       - POSTGRES_USER=postgres
       - POSTGRES_DB=example
       - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+      - AWS_CONFIG_FILE=/aws/config
+      - AWS_SHARED_CREDENTIALS_FILE=/aws/credentials
     develop:
       watch:
         - path: ./core
@@ -38,6 +42,23 @@ services:
         condition: service_healthy
     secrets:
       - db-password
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: dev.Dockerfile
+    ports:
+      - '5173:5173'
+    environment:
+      - VITE_BACKEND_HOST=localhost
+      - VITE_BACKEND_PORT=8000
+    develop:
+      watch:
+        - path: ./frontend
+          action: rebuild
+    depends_on:
+      backend:
+        condition: service_started
 
 volumes:
   pg-data:

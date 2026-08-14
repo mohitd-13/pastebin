@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./Home";
-import ViewPaste from "./ViewPaste";
+import CreatePaste from "./components/CreatePaste";
+import ViewPaste from "./components/ViewPaste";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<CreatePaste />} />
         <Route path="/:id" element={<ViewPaste />} />
       </Routes>
     </BrowserRouter>
