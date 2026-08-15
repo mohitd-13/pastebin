@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getPaste } from "../api";
+import { getPaste } from "../../api";
 
 const ViewPaste = () => {
   const { id } = useParams();
@@ -8,6 +8,7 @@ const ViewPaste = () => {
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [copyError, setCopyError] = useState("");
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -15,6 +16,7 @@ const ViewPaste = () => {
       try {
         setLoading(true);
         setError("");
+        setCopyError("");
 
         const res = await getPaste(id);
         setContent(res);
@@ -38,7 +40,7 @@ const ViewPaste = () => {
         setCopied(false);
       }, 2000);
     } catch {
-      setError("Failed to copy content.");
+      setCopyError("Failed to copy content.");
     }
   }
 
@@ -55,7 +57,7 @@ const ViewPaste = () => {
   if (error) {
     return (
       <div className="flex items-center justify-center h-screen bg-gray-100 dark:bg-gray-900">
-        <p className="text-red-500 text-xl">
+        <p className="text-red-500 bg-red-400 text-xl">
           {error}
         </p>
       </div>
@@ -76,8 +78,14 @@ const ViewPaste = () => {
           <pre className="flex-1 overflow-auto bg-gray-700 text-gray-100 p-4 rounded-lg whitespace-pre-wrap">
             {content}
           </pre>
-          <div className="flex justify-center mt-5">
 
+          {copyError && (
+            <p className="bg-red-100 text-red-500 text-center font-bold px-4 py-3 rounded-lg whitespace-pre-wrap">
+              {copyError}
+            </p>
+          )}
+
+          <div className="flex justify-center mt-5">
             <button
               onClick={copyToClipboard}
               className="bg-green-500 hover:bg-green-700 text-white text-xl font-bold py-3 px-5 rounded-lg"
