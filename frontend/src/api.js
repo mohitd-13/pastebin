@@ -24,3 +24,12 @@ export async function getPaste(id) {
     }
     return res.json();
 }
+
+export async function deletePaste(id) {
+  const res = await fetch(`${apiUrl}/pastes/${id}`, {
+    method: "DELETE",
+  });
+  if (!res.ok) {
+    throw new Error(`Failed to delete paste: ${res.statusText}`);
+  }
+}

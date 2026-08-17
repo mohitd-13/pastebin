@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getPaste } from "../../api";
+import { useParams, useNavigate } from "react-router-dom";
+import { getPaste, deletePaste } from "../../api";
 
 const ViewPaste = () => {
   const { id } = useParams();
@@ -10,6 +10,7 @@ const ViewPaste = () => {
   const [error, setError] = useState("");
   const [copyError, setCopyError] = useState("");
   const [copied, setCopied] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchPaste() {
@@ -29,6 +30,18 @@ const ViewPaste = () => {
 
     fetchPaste();
   }, [id]);
+
+  async function deleteContent() {
+    const confirmed = window.confirm("Are you sure you want to delete this paste?");
+    if (!confirmed) return;
+
+    try {
+      await deletePaste(id);
+      navigate("/");
+    } catch (err) {
+      setError(err.message)
+    }
+  }
 
   async function copyToClipboard() {
     try {
@@ -67,25 +80,41 @@ const ViewPaste = () => {
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100 dark:bg-gray-900">
       <div className="flex flex-col h-3/4 w-1/2 dark:bg-gray-800 rounded-2xl overflow-hidden">
-        <div className="px-6 pt-5">
+        <div className="flex items-center justify-between px-6 pt-5">
 
           <h3 className="text-xl font-bold dark:text-gray-100">
             PasteBin
           </h3>
+          <div className="flex gap-2">
+            <button
+              className="dark:text-gray-100 font-semibold bg-sky-500 hover:bg-sky-700 active:scale-50 rounded-lg px-3 py-1"
+              type="button"
+              onClick={() => navigate("/")}
+            >
+              New
+            </button>
+            <button
+              className="dark:text-gray-100 font-semibold bg-red-500 hover:bg-red-700 active:scale-95 rounded-lg px-3 py-1"
+              type="button"
+              onClick={deleteContent}
+            >
+              Delete
+            </button>
+          </div>
         </div>
 
-        <div className="flex flex-col flex-1 px-6 py-5">
-          <pre className="flex-1 overflow-auto bg-gray-700 text-gray-100 p-4 rounded-lg whitespace-pre-wrap">
+        <div className="flex flex-col flex-1 min-h-0 px-6 py-5">
+          <pre className="flex-1 min-h-0 overflow-auto bg-gray-700 text-gray-100 p-4 rounded-lg whitespace-pre-wrap">
             {content}
           </pre>
 
           {copyError && (
-            <p className="bg-red-100 text-red-500 text-center font-bold px-4 py-3 rounded-lg whitespace-pre-wrap">
+            <p className="bg-red-100 text-red-500 text-center font-bold px-4 py-3 rounded-lg whitespace-pre-wrap mt-3">
               {copyError}
             </p>
           )}
 
-          <div className="flex justify-center mt-5">
+          <div className="flex justify-center mt-5 shrink-0">
             <button
               onClick={copyToClipboard}
               className="bg-green-500 hover:bg-green-700 text-white text-xl font-bold py-3 px-5 rounded-lg"

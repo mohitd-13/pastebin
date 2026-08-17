@@ -4,7 +4,7 @@ This Pastebin is a full-stack project designed to store code snippets, errors lo
 
 ## Demo
 
-[View Demo](https://example.com)
+[Demo](./docs/pastebin-demo.gif)
 
 ## Getting Started
 
