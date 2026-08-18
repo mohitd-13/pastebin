@@ -1,14 +1,14 @@
 # PASTEBIN
 
-This Pastebin is a full-stack project designed to store code snippets, errors logs, and other text-based content, convert them into shareable links. A developer debugging a production issue copies 200 lines of error logs and pastes them into the Pastebin. They click "Generate Link" receive a short URL "https://example.com/3cik8s5t" they can post this link on Github issue to ask for help from other developer.
+This Pastebin is a full-stack project designed to store code snippets, errors logs, and other text-based content, convert them into shareable links. A developer debugging a production issue copies 200 lines of error logs and pastes them into the Pastebin. They click "Generate Link" receive a short URL https://example.com/3cik8s5t they can post this link on Github issue to ask for help from other developer.
 
 ## Demo
 
-![Demo](./docs/pastebin-demo.gif)
+![Demo](./assets/pastebin-demo.gif)
 
 ## Getting Started
 
-# Prerequisites (For Local Development)
+### Prerequisites (For Local Development)
 
 You need to have the following installed on your machine:
 
@@ -16,7 +16,7 @@ You need to have the following installed on your machine:
 - An AWS account & AWS CLI Configured
 - A remote AWS S3 Bucket
 
-# Installation
+### Installation
 
 1. Clone the repository:
 
@@ -55,6 +55,32 @@ You need to have the following installed on your machine:
    ```bash
    docker compose up --build --watch
    ```
+
+## Architecture Overview
+
+### Creating a Paste
+
+Users upload text content. The system generates a unique short URL and persists the text. The URL is returned immediately for sharing.
+
+![Alt Text](./assets/writepath.png)
+
+1. User pastes 50 lines of error logs and clicks "Generate Link".
+2. Frontend renders UI and sends the data to the backend.
+3. Backend receives the text data and generates a unique id for the paste.
+4. Store's the text metadata into the database, if fails, returns an error.
+5. Store's the text content into object storage, if fails, deletes the metadata, returns an error.
+6. User receives back a unique URL and can share it with others.
+
+### Retrieving a Paste
+
+Users can retrieve pastes using the unique URL generated during creation.
+
+![Alt Text](./assets/readpath.png)
+
+1. User enters the unique URL into the browser and frontend recieves the URL.
+2. Frontend renders the UI, extracts the unique id and sends a request to the backend.
+3. Backend finds the text content in object storage and returns it to the frontend.
+4. User gets the text content shown.
 
 ## Contributing
 
