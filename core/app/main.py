@@ -5,6 +5,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.config import settings
 from app.database import initialize_database
 from app.routers import pastes
 
@@ -16,7 +17,10 @@ async def lifespan(app: FastAPI):
     await initialize_database()
 
     # Create asynchronous s3 session
-    session = aioboto3.Session(profile_name="pastebin")
+    if settings.aws_profile:
+        session = aioboto3.Session(profile_name=settings.aws_profile)
+    else:
+        session = aioboto3.Session()
 
     async with session.client("s3") as s3:
         app.state.s3 = s3

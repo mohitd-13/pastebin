@@ -11,10 +11,12 @@ class Settings(BaseSettings):
     db_pool_timeout: int = 30           # Seconds to wait for available connection
     db_pool_recycle: int = 1800         # Recycle connections after 30 minutes
     db_echo: bool = True                # Print SQL in terminal, good for debugging (disable in production)
-    
+
     # AWS S3 storage settings
     aws_s3_bucket_name: str = "pastebin-content-656338545145"
-    
+    aws_profile: str | None = None
+    aws_region: str = "ap-south-1"
+
     # Database settings
     postgres_driver: str = "asyncpg"
     postgres_user: str = "postgres"
@@ -32,7 +34,7 @@ class Settings(BaseSettings):
         if not password:
             raise ValueError("Password not found, file is empty")
         return password
-    
+
     @cached_property
     def postgres_url(self) -> str:
         return (
@@ -40,7 +42,7 @@ class Settings(BaseSettings):
             f"{self.postgres_user}:{self.postgres_password}"
             f"@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
         )
-        
+
 @lru_cache
 def get_settings() -> Settings:
     """
@@ -48,5 +50,5 @@ def get_settings() -> Settings:
     and cached for future use.
     """
     return Settings()
-    
+
 settings = get_settings()

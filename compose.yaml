@@ -31,6 +31,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=example
       - POSTGRES_PASSWORD_FILE=/run/secrets/db-password
+      - AWS_PROFILE=pastebin
       - AWS_CONFIG_FILE=/aws/config
       - AWS_SHARED_CREDENTIALS_FILE=/aws/credentials
     develop:

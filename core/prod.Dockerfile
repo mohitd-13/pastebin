@@ -6,9 +6,9 @@ WORKDIR /pastebin
 
 # `UV_COMPILE_BYTECODE=1` enables bytecode compilation (creates .pyc files).
 # 'UV_LINK_MODE=copy` Copy from the cached instead of creating symlinks.
-# 'UV_PYTHON_DOWNLOADS=0` Disables python downloads to use system interpreter 
-ENV UV_COMPILE_BYTECODE=1 \ 
-    UV_LINK_MODE=copy \  
+# 'UV_PYTHON_DOWNLOADS=0` Disables python downloads to use system interpreter
+ENV UV_COMPILE_BYTECODE=1 \
+    UV_LINK_MODE=copy \
     UV_PYTHON_DOWNLOADS=0
 
 # Only install the project's dependencies using the lockfile and settings
@@ -23,7 +23,7 @@ COPY . .
 # Sync the project
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-dev
-    
+
 # ---------------- Stage 2: Final Image ----------------
 
 FROM python:3.12-slim-bookworm
@@ -45,7 +45,7 @@ COPY --from=builder /pastebin /pastebin
 
 # Place executables in the environmnet
 ENV PATH="/pastebin/.venv/bin:$PATH"
- 
+
 # Switch to the non-root user
 USER appuser
 
