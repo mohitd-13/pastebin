@@ -1,10 +1,7 @@
-const VITE_BACKEND_HOST = import.meta.env.VITE_BACKEND_HOST || 'localhost';
-const VITE_BACKEND_PORT = import.meta.env.VITE_BACKEND_PORT || '8080';
-
-const apiUrl = `http://${VITE_BACKEND_HOST}:${VITE_BACKEND_PORT}`;
+const VITE_API_URL = import.meta.env.VITE_API_URL
 
 export async function createPaste(content) {
-    const res = await fetch(`${apiUrl}/pastes`, {
+    const res = await fetch(`${VITE_API_URL}/pastes`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -18,7 +15,7 @@ export async function createPaste(content) {
 }
 
 export async function getPaste(id) {
-    const res = await fetch(`${apiUrl}/pastes/${id}`);
+    const res = await fetch(`${VITE_API_URL}/pastes/${id}`);
     if (!res.ok) {
         throw new Error(`Failed to get paste: ${res.statusText}`);
     }
@@ -26,7 +23,7 @@ export async function getPaste(id) {
 }
 
 export async function deletePaste(id) {
-  const res = await fetch(`${apiUrl}/pastes/${id}`, {
+  const res = await fetch(`${VITE_API_URL}/pastes/${id}`, {
     method: "DELETE",
   });
   if (!res.ok) {

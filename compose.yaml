@@ -51,8 +51,7 @@ services:
     ports:
       - '5173:5173'
     environment:
-      - VITE_BACKEND_HOST=localhost
-      - VITE_BACKEND_PORT=8000
+      - VITE_API_URL=http://localhost:8000
     develop:
       watch:
         - path: ./frontend
