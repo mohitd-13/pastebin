@@ -1,6 +1,6 @@
 # PASTEBIN
 
-Pastebin is a full-stack application designed to store code snippets, errors logs, and other text-based content and convert them into shareable URLs. A developer debugging a production issue encounters error logs, can use Pastebin to copy the error logs, and convert them into unique shareable URLs. They can then share this URL with others to get help from other developers who may have encountered the same issue.
+Pastebin is a full-stack application designed to store code snippets, errors logs, and other text-based content and convert them into shareable URLs. A developer debugging a production issue encounters errors, can use Pastebin to copy the error logs, and convert them into unique shareable URLs. They can then post or share this URL with others to get help from other developers who may have encountered the same issue.
 
 ## Demo
 
@@ -93,8 +93,8 @@ Users upload text content. The system generates a unique short URL and persists 
 1. User pastes 50 lines of error logs and clicks "Generate Link".
 2. Frontend renders UI and sends the data to the backend.
 3. Backend receives the text data and generates a unique id for the paste.
-4. Store's the text metadata into the database, if fails, returns an error.
-5. Store's the text content into object storage, if fails, deletes the metadata, returns an error.
+4. Stores the text metadata into the database, if fails, returns an error.
+5. Stores the text content into object storage, if fails, deletes the metadata, returns an error.
 6. User receives back a unique URL and can share it with others.
 
 ### Retrieving a Paste
@@ -103,7 +103,7 @@ Users can retrieve pastes using the unique URL generated during creation.
 
 ![Alt Text](./assets/readpath.png)
 
-1. User enters the unique URL into the browser and frontend recieves the URL.
+1. User enters the unique URL into the browser and frontend receives the URL.
 2. Frontend extracts the unique id from the URL and sends a request to the backend.
 3. Backend obtains the text content from AWS s3 object storage and returns it to the frontend.
 4. Frontend renders the UI and displays the text content to the user.
@@ -144,18 +144,15 @@ Follow these steps to contribute effectively:
     - Document Your Changes
         - Update README.md or CONTRIBUTING.md if needed
 
-4. **Submit a Pull Request (PR)**
+4. **Submit your PR and participate in code review**
 
-    - Push your branch and open a PR with:
+    - Push your branch and open a Pull Request with:
 
         - A short, clear description of your changes.
         - Any related issue numbers (for example, "Closes #12").
-        - Screenshots or example outputs (if applicable).
-
-5. **Participate in Code Review**
-
-    - Respond to feedback, make improvements, and help maintain project quality.
+        - Screenshots or example outputs (if applicable)
+        - Respond to feedback, make improvements, and help maintain project quality.
 
 ## License
 
-This project is licensed under the MIT License-see the LICENSE file for details.
+This project is licensed under the MIT License.
