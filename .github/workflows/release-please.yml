@@ -12,9 +12,15 @@ permissions:
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    outputs:
+      frontend--tag_name: ${{ steps.release.outputs.frontend--tag_name}}
+      frontend--release_created: ${{ steps.release.outputs.frontend--release_created}}
+      core--tag_name: ${{ steps.release.outputs.core--tag_name}}
+      core--release_created: ${{ steps.release.outputs.core--release_created}}
     steps:
       - name: Create Release
         uses: googleapis/release-please-action@v4
+        id: release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           config-file: release-please-config.json
@@ -24,4 +30,4 @@ jobs:
         continue-on-error: true
         run: |
             echo "Release outputs:"
-            echo "${{ toJson(steps.release-please.outputs) }}"
+            echo "${{ toJson(steps.release.outputs) }}"

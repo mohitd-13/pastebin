@@ -53,7 +53,8 @@ You need to have the following installed on your machine:
 > Replace `mypassword` with password of your choice, do not change any folder or file names.
 
 3. AWS Configurations:
-  - Pastebin uses AWS S3 for object storage. Follow the [AWS Local Setup](docs/aws-local-setup.md) to configure the required IAM permissions and AWS CLI profile.
+
+    - Pastebin uses AWS S3 for object storage. Follow the [AWS Local Setup](docs/aws-local-setup.md) to configure the required IAM permissions and AWS CLI profile.
 
 4. Run the application:
 
@@ -63,8 +64,8 @@ You need to have the following installed on your machine:
 
 5. Open the application:
 
-  - Application is available at `http://localhost:5173`.
-  - Backend API docs are available at `http://localhost:8080/docs`.
+    - Application is available at `http://localhost:5173`.
+    - Backend API docs are available at `http://localhost:8080/docs`.
 
 
 ## Architecture Overview
@@ -179,21 +180,13 @@ Follow these steps to contribute effectively:
 
     - Use `feature/<name>` branch to develop your feature and submit it through a Pull Request for CI checks and code review:
 
-    ```bash
-    git checkout -b feature/your-feature-name
-    ```
+       ```bash
+       git checkout -b feature/your-feature-name
+       ```
 
 3. **Use Clear Commit Messages**
 
-    - Commit messages must follow the conventional commit style because the automated release process uses commit messages to determine version changes, check out [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for more information on the commit message format:
-        - feat: - new feature
-        - fix: - bug fix
-        - BREAKING CHANGE: - new changes that are not backward-compatible
-        - docs: - documentation update
-        - refactor: - code restructuring
-
-    - Document Your Changes
-        - Update README.md or CONTRIBUTING.md if needed
+    - Commit messages must follow the conventional commit style because the automated release process uses commit messages to determine version changes, check out [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for more information on the commit message format.
 
 4. **Submit your PR and participate in code review**
 

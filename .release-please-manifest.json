@@ -1,4 +1,4 @@
 {
-  "pastebin-frontend": "0.1.0",
-  "pastebin-backend": "0.1.0"
+  "frontend": "0.1.0",
+  "core": "0.1.0"
 }
