@@ -1,5 +1,5 @@
 # --- uv & Python Virtual Environments ---
-# Crucial: Always ignore local virtual environments. They are platform-dependent 
+# Crucial: Always ignore local virtual environments. They are platform-dependent
 # and will break inside the container if copied from a different OS.
 .venv/
 venv/
@@ -16,7 +16,6 @@ secrets/
 htmlcov/
 .toast/
 .nobackup
-.python-version
 
 # --- Package Build & Distribution Artifacts ---
 # If your pyproject.toml defines a buildable package, ignore local build outputs.

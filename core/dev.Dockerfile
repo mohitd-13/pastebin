@@ -4,6 +4,9 @@ FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 # Create a working directory for the project
 WORKDIR /core
 
+# Keeps Python from buffering stdout and stderr
+ENV PYTHONUNBUFFERED=1
+
 # Enable bytecode compilation
 ENV UV_COMPILE_BYTECODE=1
 
@@ -14,17 +17,17 @@ ENV UV_LINK_MODE=copy
 RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    uv sync --frozen --no-install-project --no-dev
+    uv sync --frozen --no-install-project
 
 # Copy the project source code
-COPY . .
+COPY . /core
 
 # Install the rest of the project dependencies
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --frozen --no-dev
+    uv sync --frozen
 
 # Place executables in the environment at the front of the path
 ENV PATH="/core/.venv/bin:$PATH"
 
 # Run the application in development mode
-CMD ["fastapi", "dev", "--host", "0.0.0.0"]
+CMD ["uv", "run", "fastapi", "dev", "--host", "0.0.0.0"]

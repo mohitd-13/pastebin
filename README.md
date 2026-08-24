@@ -49,12 +49,11 @@ You need to have the following installed on your machine:
    echo "mypassword" > core/secrets/postgresql/credential
    ```
 
-> [!WARNING]
+> [!NOTE]
 > Replace `mypassword` with password of your choice, do not change any folder or file names.
 
 3. AWS Configurations:
-
-  Pastebin uses AWS S3 for object storage. Follow the [AWS Local Setup](docs/aws-local-setup.md) to configure the required IAM permissions and AWS CLI profile.
+  - Pastebin uses AWS S3 for object storage. Follow the [AWS Local Setup](docs/aws-local-setup.md) to configure the required IAM permissions and AWS CLI profile.
 
 4. Run the application:
 
@@ -64,8 +63,8 @@ You need to have the following installed on your machine:
 
 5. Open the application:
 
-  Frontend is available at `http://localhost:5173`.
-  Backend API docs are available at `http://localhost:8080/docs`.
+  - Application is available at `http://localhost:5173`.
+  - Backend API docs are available at `http://localhost:8080/docs`.
 
 
 ## Architecture Overview
