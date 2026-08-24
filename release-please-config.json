@@ -1,0 +1,17 @@
+{
+  "include-component-in-tag": true,
+  "include-v-in-tag": true,
+  "tag-separator": "@",
+  "separate-pull-requests": true,
+  "packages": {
+    "pastebin-frontend": {
+      "component": "pastebin-frontend",
+      "release-type": "node"
+    },
+    "pastebin-backend": {
+      "component": "pastebin-backend",
+      "release-type": "python"
+    }
+  },
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json"
+}
