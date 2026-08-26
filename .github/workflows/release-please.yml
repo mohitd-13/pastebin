@@ -27,3 +27,35 @@ jobs:
         run: |
             echo "Release outputs:"
             echo "${{ toJson(steps.release.outputs) }}"
+
+      - name: Trigger Frontend Image Build
+        if: steps.release.outputs.frontend--release_created == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'publish-images.yml',
+              ref: 'main',
+              inputs: {
+                component: 'frontend',
+                version: '${{ steps.release.outputs.frontend--tag_name }}',
+              },
+            });
+
+      - name: Trigger Core Image Build
+        if: steps.release.outputs.core--release_created == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'publish-images.yml',
+              ref: 'main',
+              inputs: {
+                component: 'core',
+                version: '${{ steps.release.outputs.core--tag_name }}',
+              },
+            });
