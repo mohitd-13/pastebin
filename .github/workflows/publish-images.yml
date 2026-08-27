@@ -27,8 +27,6 @@ jobs:
     steps:
       - name: Checkout release
         uses: actions/checkout@v4
-        with:
-          ref: ${{ inputs.tag }}
 
       - name: Setup Docker
         uses: docker/setup-buildx-action@v3
@@ -44,9 +42,9 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository }}/pastebin-${{ inputs.component }}
+          images: ghcr.io/${{ github.repository }}/
           tags: |
-            type=semver,pattern={{version}},value=v${{ inputs.tag }}
+            type=semver,pattern={{version}},value=${{ inputs.tag }}
             type=raw,value=latest
             type=sha
 

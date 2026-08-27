@@ -23,10 +23,11 @@ jobs:
           manifest-file: .release-please-manifest.json
 
       - name: Print Release Info
-        continue-on-error: true
         run: |
-            echo "Release outputs:"
-            echo "${{ toJson(steps.release.outputs) }}"
+          echo "Frontend release created: ${{ steps.release.outputs.frontend--release_created }}"
+          echo "Frontend tag: ${{ steps.release.outputs.frontend--tag_name }}"
+          echo "Core release created: ${{ steps.release.outputs.core--release_created }}"
+          echo "Core tag: ${{ steps.release.outputs.core--tag_name }}"
 
       - name: Trigger Frontend Image Build
         if: steps.release.outputs.frontend--release_created == 'true'
@@ -44,7 +45,7 @@ jobs:
               },
             });
 
-      - name: Trigger Core Image Build
+      - name: Trigger Backend Image Build
         if: steps.release.outputs.core--release_created == 'true'
         uses: actions/github-script@v7
         with:
