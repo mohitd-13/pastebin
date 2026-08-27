@@ -186,7 +186,14 @@ Follow these steps to contribute effectively:
 
 3. **Use Clear Commit Messages**
 
-    - Commit messages must follow the conventional commit style because the automated release process uses commit messages to determine version changes, check out [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for more information on the commit message format.
+    - Commit messages must follow the conventional commit style because the automated release process uses commit messages to determine version changes, check out [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) website for more information.
+    - Since this is a monorepo, commit messages should be prefixed with the component name e.g.
+       ```bash
+       git commit -m "feat(frontend): update message" # for frontend Commits
+       git commit -m "feat(core): update message" # for backend Commits
+       git commit -m "ci: update message" # for CI/CD Commits
+       git commit -m "docs: update message" # for documentation Commits
+       ```
 
 4. **Submit your PR and participate in code review**
 

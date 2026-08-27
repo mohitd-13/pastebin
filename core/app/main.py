@@ -43,7 +43,7 @@ app.include_router(pastes.router)
 
 @app.get("/", tags=["Root"])
 def root():
-    return {"message": "Welcome to Pastbin"}
+    return {"message": "Welcome to Pastebin"}
 
 
 @app.get("/healthz", tags=["Health"])
