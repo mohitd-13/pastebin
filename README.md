@@ -1,6 +1,6 @@
 # PASTEBIN
 
-Pastebin is a full-stack application designed to store code snippets, errors logs, and other text-based content and convert them into shareable URLs. A developer debugging a production issue encounters errors, can use Pastebin to copy the error logs, and convert them into unique shareable URLs. They can then post or share this URL with others to get help from other developers who may have encountered the same issue.
+Pastebin is a full-stack application designed to store code snippets, error logs, and other text-based content and convert them into shareable URLs. A developer debugging a production issue encounters errors, can use Pastebin to copy the error logs, and convert them into unique shareable URLs. They can then post or share this URL with others to get help from other developers who may have encountered the same issue.
 
 
 ## Demo
@@ -30,8 +30,8 @@ Click here to see live demo: [Live Demo](https://pastebin-ivory.vercel.app/)
 You need to have the following installed on your machine:
 
 - Docker & Docker Compose
-- An AWS account & AWS CLI Configured
-- A remote AWS S3 Bucket
+- An AWS account with AWS CLI configured
+- An AWS S3 Bucket
 
 ### Installation
 
@@ -42,7 +42,7 @@ You need to have the following installed on your machine:
    cd pastebin
    ```
 
-2. Create a secrets file for postgresql password:
+2. Create the Postgresql password secret:
 
    ```bash
    mkdir -p core/secrets/postgresql
@@ -110,62 +110,22 @@ Users can retrieve pastes using the unique URL generated during creation.
 The API documentation is available through FastAPI's Swagger UI at [Docs](https://pastebin-0axv.onrender.com/docs).
 
 > [!NOTE]
-> This may also take a few minutes to load.
+> The backend may take 15–20 seconds to start when it has been idle.
 
+## Testing
 
-## Project Structure
+For frontend testing, refer to the [frontend testing](./frontend/README.md).
+For backend testing, refer to the [backend testing](./core/README.md).
 
-```text
-.
-├── .docker
-│   └── aws
-│       ├── config                  # AWS config for docker compose
-│       └── credentials             # AWS credentials for docker compose
-├── compose.yaml                    # Docker Compose configuration for local dev
-├── core
-│   ├── app
-│   │   ├── config.py               # Application, database and aws s3 configuration
-│   │   ├── database.py             # Database engine and session configuration
-│   │   ├── dependencies.py         # Dependency configuration
-│   │   ├── main.py                 # Application entry point
-│   │   ├── models.py               # Database models
-│   │   ├── routers                 # API routers for pastebin routes
-│   │   ├── schemas.py              # Pydantic schemas
-│   │   ├── service.py              # Business logic for pastebin routes
-│   │   ├── storage                 # Storage layer for s3
-│   │   └── utils.py                # Utility functions
-│   ├── dev.Dockerfile              # Development Dockerfile
-│   ├── prod.Dockerfile             # Production Dockerfile
-│   ├── pyproject.toml              # Project configuration
-│   ├── README.md                   # Backend README
-│   ├── secrets
-│   │   └──postgresql
-│   │       └── credential          # PostgreSQL database password credential
-│   │
-│   ├── tests
-│   │   ├── test_bucket.py          # Test bucket operations
-│   │   └── test_service.py         # Test service layer
-│   └── uv.lock                     # Lock file for dependencies
-├── frontend
-│   ├── dev.Dockerfile              # Development Dockerfile
-│   ├── eslint.config.js            # ESLint configuration
-│   ├── index.html                  # Entry point HTML
-│   ├── package.json                # Package configuration
-│   ├── package-lock.json           # Package lock file
-│   ├── prod.Dockerfile             # Production Dockerfile
-│   ├── README.md                   # Frontend README
-│   ├── src
-│   │   ├── api.js                  # API request handling
-│   │   ├── App.jsx                 # Main application component
-│   │   ├── assets
-│   │   ├── components              # React components
-│   │   ├── index.css               # Global styles
-│   │   ├── main.jsx                # Entry point for the application
-│   ├── vercel.json                 # Vercel configuration
-│   └── vite.config.js              # Vite configuration
-└── README.md                       # Project README
-```
+## Continuous Integration
 
+The project uses GitHub Actions for continuous integration. The ci workflow consists of the following steps:
+
+1. Integration Tests
+2. Security Scanning
+3. Image Scanning
+4. Automated Release
+5. Image Publishing
 
 ## Contributing
 
