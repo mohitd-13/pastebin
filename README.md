@@ -2,6 +2,9 @@
 
 Pastebin is a full-stack application designed to store code snippets, error logs, and other text-based content and convert them into shareable URLs. A developer debugging a production issue encounters errors, can use Pastebin to copy the error logs, and convert them into unique shareable URLs. They can then post or share this URL with others to get help from other developers who may have encountered the same issue.
 
+[![Feature Push](https://github.com/mohitd-13/pastebin/actions/workflows/feature-push.yml/badge.svg)](https://github.com/mohitd-13/pastebin/actions)
+[![Release Please](https://github.com/mohitd-13/pastebin/actions/workflows/release-please.yml/badge.svg)](https://github.com/mohitd-13/pastebin/actions)
+[![Publish Images](https://github.com/mohitd-13/pastebin/actions/workflows/publish-images.yml/badge.svg)](https://github.com/mohitd-13/pastebin/actions)
 
 ## Demo
 
