@@ -7,7 +7,7 @@ const PasteFrom = ({ content, onContentChange, loading, submitHandler, error }) 
       }}
     >
       <textarea
-        className="flex-1 overflow-auto dark:bg-gray-700 dark:text-gray-100 p-4 rounded-lg whitespace-pre-wrap"
+        className="flex-1 overflow-auto bg-sky-100 dark:bg-gray-700 text-gray-700 dark:text-gray-100 p-4 rounded-lg whitespace-pre-wrap"
         placeholder="Paste code snippets here..."
         value={content}
         onChange={(e) => onContentChange(e.target.value)}

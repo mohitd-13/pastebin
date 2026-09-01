@@ -52,10 +52,10 @@ const CreatePaste = () => {
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100 dark:bg-gray-900">
-      <div className="flex flex-col h-3/4 w-1/2 dark:bg-gray-800 rounded-2xl overflow-hidden">
+      <div className="flex flex-col h-3/4 w-1/2 bg-sky-200 dark:bg-gray-800 rounded-2xl overflow-hidden">
         <div className="px-6 pt-5">
             <h3 className="text-xl font-bold dark:text-gray-100">PasteBin</h3>
-            <p className="dark:text-gray-400">Save and share your code snippets with others.</p>
+            <p className="dark:text-gray-400 text-gray-600">Save and share your code snippets with others.</p>
         </div>
 
         {pasteUrl

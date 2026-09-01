@@ -79,7 +79,7 @@ const ViewPaste = () => {
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100 dark:bg-gray-900">
-      <div className="flex flex-col h-3/4 w-1/2 dark:bg-gray-800 rounded-2xl overflow-hidden">
+      <div className="flex flex-col h-3/4 w-1/2 bg-sky-200 dark:bg-gray-800 rounded-2xl overflow-hidden">
         <div className="flex items-center justify-between px-6 pt-5">
 
           <h3 className="text-xl font-bold dark:text-gray-100">
@@ -104,7 +104,7 @@ const ViewPaste = () => {
         </div>
 
         <div className="flex flex-col flex-1 min-h-0 px-6 py-5">
-          <pre className="flex-1 min-h-0 overflow-auto bg-gray-700 text-gray-100 p-4 rounded-lg whitespace-pre-wrap">
+          <pre className="flex-1 min-h-0 overflow-auto bg-sky-100 text-gray-700 dark:text-gray-100 p-4 rounded-lg whitespace-pre-wrap">
             {content}
           </pre>
 
