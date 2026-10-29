@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/mohitd-13/pastebin/compare/frontend@v0.2.0...frontend@v0.2.1) (2026-09-01)
+
+
+### Bug Fixes
+
+* **frontend:** added correct coloring for light theme ([da7bdbf](https://github.com/mohitd-13/pastebin/commit/da7bdbf4419531cc4c1a847df9879071ce3bec63))
+
 ## [0.2.0](https://github.com/mohitd-13/pastebin/compare/frontend@v0.1.0...frontend@v0.2.0) (2026-08-31)
 
 
