@@ -1,43 +1,28 @@
 # ----------------- Stage 1: Build -------------------
-ARG NODE_VERSION=24.14.0-alpine
-# Use a lightweight Node.js image
-FROM node:${NODE_VERSION} AS builder
+FROM oven/bun:1-alpine AS builder
 
-# Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+COPY package.json bun.lock ./
+RUN --mount=type=cache,target=/root/.bun/install/cache \
+    bun install --frozen-lockfile
 
-# Install project dependencies using npm ci
-RUN --mount=type=cache,target=/root/.npm npm ci
-
-# Copy the rest of the application code
 COPY . .
-
-# Build the application
-RUN npm run build
+RUN bun run build
 
 # ----------------- Stage 2: Run -------------------
-FROM node:${NODE_VERSION} AS runner
+FROM nginxinc/nginx-unprivileged:stable-alpine AS runner
 
-# Set the working directory
-WORKDIR /app
+# Replace the default server config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Set the environment variable
-ENV NODE_ENV=production
+# Add template config for forwarding backend traffic
+COPY nginx.conf.template /etc/nginx/templates/default.conf.template
 
-# Copy only the production build output from the builder stage
-COPY --link --from=builder /app/dist ./dist
+# Copy only the build output
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Install only the `serve` package
-RUN --mount=type=cache,target=/root/.npm npm install serve@^14.2.6 --omit=dev
+EXPOSE 8080
 
-# Run the container as a non-root user
-USER node
-
-# Expose the port the app runs on
-EXPOSE 3000
-
-# Run `serve` directly to server the built app
-CMD ["npx", "serve", "-s", "dist", "-l", "3000"]
+# Image already runs as the non-root `nginx` user (UID 101)
+CMD ["nginx", "-g", "daemon off;"]
