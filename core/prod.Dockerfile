@@ -1,6 +1,6 @@
 # ---------------- Stage 1: Build Dependencies ----------------
 # Use a Python image with uv pre-installed
-FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS builder
+FROM ghcr.io/astral-sh/uv:python3.12-trixie-slim AS builder
 
 WORKDIR /pastebin
 
@@ -26,7 +26,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 
 # ---------------- Stage 2: Final Image ----------------
 
-FROM python:3.12-slim-bookworm
+FROM python:3.12-slim-trixie
 
 WORKDIR /pastebin
 
@@ -44,7 +44,8 @@ RUN groupadd --system appgroup && \
 COPY --from=builder /pastebin /pastebin
 
 # Place executables in the environmnet
-ENV PATH="/pastebin/.venv/bin:$PATH"
+ENV PATH="/pastebin/.venv/bin:$PATH" \
+    PYTHONUNBUFFERED=1
 
 # Switch to the non-root user
 USER appuser
